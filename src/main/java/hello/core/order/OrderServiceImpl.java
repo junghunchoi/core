@@ -2,14 +2,18 @@ package hello.core.order;
 
 import hello.core.discount.DiscountPolicy;
 import hello.core.discount.FixDiscountPolicy;
+import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemoryMemberRepository;
 
 public class OrderServiceImpl implements  OrderService{
-    private final MemoryMemberRepository memberRepository = new MemoryMemberRepository();
-    private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
+    private final MemoryMemberRepository memberRepository;
+    private  DiscountPolicy discountPolicy;
 
-
+    public OrderServiceImpl(MemoryMemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
 
     @Override
     public Order createOrder(Long memberID, String itemname, int itemPrice) {
@@ -19,3 +23,5 @@ public class OrderServiceImpl implements  OrderService{
         return new Order(memberID,itemname,itemPrice,itemPrice);
     }
 }
+
+
